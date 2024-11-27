@@ -13,7 +13,7 @@ go run main.go
 
 ## To Run Tests
 1. Navigate to the root (where this readme is located)
-2. Ru n the following in the terminal:
+2. Run the following in the terminal:
 ```
 go test ./...
 ```
