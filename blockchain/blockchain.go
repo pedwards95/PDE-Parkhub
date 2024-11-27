@@ -1,6 +1,10 @@
 package blockchain
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/skip2/go-qrcode"
+)
 
 // Blockchain ...
 type Blockchain struct {
@@ -45,9 +49,16 @@ func (b *Blockchain) IsValid() bool {
 	return true
 }
 
-// PrintLastHashString prints the hash of the last Block in the chain, testing/demo only
+// PrintLastHashString prints the hash of the last Block in the chain, and prints QR code to file
 func (b *Blockchain) PrintLastHashString() {
 	lastBlock := b.chain[len(b.chain)-1]
-	msg := fmt.Sprintf("Last block's hash string is: %+v", lastBlock.Hash)
+	fileName := fmt.Sprintf("block%d.png", len(b.chain))
+	// create QR code
+	err := qrcode.WriteFile(lastBlock.Hash, qrcode.Medium, 256, fileName)
+	if err != nil {
+		fmt.Println("Error writing QR code!")
+		return
+	}
+	msg := fmt.Sprintf("Last block's hash string is: %+v, Printed QR code to file %s", lastBlock.Hash, fileName)
 	fmt.Println(msg)
 }
